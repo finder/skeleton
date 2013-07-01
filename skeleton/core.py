@@ -289,7 +289,7 @@ class Skeleton(collections.MutableMapping):
                 src = os.path.join(dir_path, file_name)
                 dst = os.path.join(
                     dst_dir,
-                    rel_dir_path,
+                    self.template_formatter(rel_dir_path),
                     self._format_file_name(file_name, dir_path)
                     )
                 self._copy_file(src, dst)
