@@ -418,7 +418,7 @@ class Skeleton(collections.MutableMapping):
             try:
                 fd_src = codecs.open(src, encoding=self.file_encoding)
                 fd_dst = codecs.open(dst, 'w', encoding=self.file_encoding)
-                fd_dst.write(self.template_formatter(fd_src.read()))
+                fd_dst.write(self.render_file(fd_src.read()))
             finally:
                 if fd_src is not None:
                     fd_src.close()
@@ -433,6 +433,9 @@ class Skeleton(collections.MutableMapping):
         _LOG.info("Set mode of %r to '%o'", path, get_file_mode(like))
         if not self.run_dry:
             shutil.copymode(like, path)
+
+    def render_file(self, template):
+        return self.template_formatter(template)
 
 
 class Var(object):
